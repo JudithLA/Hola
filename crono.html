@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <script type="text/javascript">
+            // esto es un comentario.
+            /* esto es otro comentario */
+            
+            var centesimas = 0;
+            var segundos = 0;
+            var minutos = 0;
+            var intervalControler;
+            
+            
+            var pintar = function(){
+                pintarMini(centesimas, "centesimas");
+                pintarMini(segundos, "segundos");
+                pintarMini(minutos, "minutos");
+                
+            };            
+            
+            var update = function(){
+               console.log("updating");
+                centesimas++;
+                if( centesimas >= 100){
+                    centesimas = 0;
+                    segundos++;
+                }
+                
+                if(segundos >= 60){
+                    segundos = 0;
+                    minutos++;
+                }
+                pintar();
+                
+            };
+            
+            
+            var stop = function(){
+                clearInterval(intervalControler);
+                intervalControler = 0;
+            };
+            
+            var start = function(){
+                if(!intervalControler){
+                    intervalControler = setInterval(function(){update();}, 10);
+                    console.log(intervalControler);
+                }  
+            };
+            var reset = function(){
+                centesimas = segundos = minutos = 0;
+                pintar();
+            };
+            
+            var checkpoint = function(){
+                
+            };
+            
+            var pintarMini = function(value, id ){
+                var stringValue = value+"";
+                if(value < 10){
+                    stringValue = "0"+ stringValue;
+                }
+                
+                document.getElementById(id).innerHTML = stringValue;
+            };
+            
+
+            
+            
+            
+            
+        </script>
+    </head>
+    <body>
+        <div id="crono1">
+            <a id="minutos">00</a>:<a id="segundos">00</a>:<a id="centesimas">00</a>
+            <br>
+            <button id="iniciar" onClick="start();"> INICIO </button>
+            <button id="parar" onClick="stop();"> PARAR </button>
+            <button id="restart" onClick="reset();"> RESET </button>
+        </div>
+    </body>
+</html>
